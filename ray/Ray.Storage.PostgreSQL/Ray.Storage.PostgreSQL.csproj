@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <PackageReference Include="Dapper" Version="2.0.30" />
+    <PackageReference Include="Npgsql" Version="4.1.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Ray.Core\Ray.Core.csproj" />
+    <ProjectReference Include="..\Ray.DistributedTx\Ray.DistributedTx.csproj" />
+    <ProjectReference Include="..\Ray.Storage.SQLCore\Ray.Storage.SQLCore.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Update="Microsoft.SourceLink.GitHub" Version="1.0.0" />
+  </ItemGroup>
+
+</Project>
