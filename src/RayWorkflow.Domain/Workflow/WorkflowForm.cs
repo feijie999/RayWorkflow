@@ -29,16 +29,15 @@ namespace RayWorkflow.Domain.Workflow
         /// <summary>
         /// 排序码
         /// </summary>
-        public int SortCode { get; set; }
+        public int Sort { get; set; }
 
         /// <summary>
         /// 是否禁用
         /// </summary>
-        public int Disabled { get; set; }
+        public bool Disabled { get; set; }
         /// <summary>
         /// 备注
         /// </summary>
-        [MaxLength(512)]
         public string Description { get; set; }
     }
 }

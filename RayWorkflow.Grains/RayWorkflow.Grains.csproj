@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="9.0.0" />
+    <PackageReference Include="Microsoft.Orleans.CodeGenerator.MSBuild" Version="3.0.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ray\Ray.Core\Ray.Core.csproj" />
+    <ProjectReference Include="..\ray\Ray.Storage.PostgreSQL\Ray.Storage.PostgreSQL.csproj" />
+    <ProjectReference Include="..\src\RayWorkflow.Domain\RayWorkflow.Domain.csproj" />
+    <ProjectReference Include="..\src\RayWorkflow.IGrains\RayWorkflow.IGrains.csproj" />
+  </ItemGroup>
+
+</Project>
