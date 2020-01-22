@@ -1,16 +1,12 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using RayWorkflow.Domain.Shared;
-using Volo.Abp.Domain.Entities.Auditing;
 
-namespace RayWorkflow.Domain.Workflow
+namespace RayWorkflow.Domain.Shared.Workflow
 {
-    /// <summary>
-    /// 工作流表单模板
-    /// </summary>
-    [Serializable]
-    public class WorkflowForm : AuditedEntity<Guid>, IEntity<Guid>
+    public class WorkflowFormDto
     {
+        public Guid Id { get; set; }
+
         /// <summary>
         /// 表单名称
         /// </summary>
@@ -36,9 +32,19 @@ namespace RayWorkflow.Domain.Workflow
         /// 是否禁用
         /// </summary>
         public bool Disabled { get; set; }
+
         /// <summary>
         /// 备注
         /// </summary>
         public string Description { get; set; }
+
+        public virtual DateTime? LastModificationTime { get; set; }
+
+        public virtual Guid? LastModifierId { get; set; }
+
+        public virtual DateTime CreationTime { get; set; }
+
+        public virtual Guid? CreatorId { get; set; }
+
     }
 }

@@ -19,4 +19,8 @@
     <ProjectReference Include="..\src\RayWorkflow.IGrains\RayWorkflow.IGrains.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Grains\" />
+    <Folder Include="States\" />
+  </ItemGroup>
 </Project>
