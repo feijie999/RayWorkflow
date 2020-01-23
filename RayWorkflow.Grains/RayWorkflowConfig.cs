@@ -2,6 +2,9 @@
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Ray.Core.Abstractions;
+using Ray.Core.Storage;
+using Ray.Storage.PostgreSQL;
+using Ray.Storage.SQLCore.Configuration;
 
 namespace RayWorkflow.Grains
 {
@@ -9,7 +12,8 @@ namespace RayWorkflow.Grains
     {
         public void Configure(IServiceCollection serviceCollection)
         {
-            throw new NotImplementedException();
+            serviceCollection.AddSingleton<IConfigureBuilder<Guid, WorkflowFormGrain>>(new PSQLConfigureBuilder<Guid, WorkflowFormGrain>((provider, id, parameter) =>
+                new GuidKeyOptions(provider, "core_event", "WorkflowForm")).AutoRegistrationObserver());
         }
 
         public Task ConfigureObserverUnit(IServiceProvider serviceProvider, IObserverUnitContainer followUnitContainer)

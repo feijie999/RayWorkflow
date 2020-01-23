@@ -51,6 +51,7 @@ namespace RayWorkflow.Host
                         options.ConnectionKey = "core_event";
                         options.TableName = "Transaction_TemporaryRecord";
                     });
+                    //serviceCollection.AddCrudGrain<>
                 })
                 .ConfigureLogging(logging =>
                 {

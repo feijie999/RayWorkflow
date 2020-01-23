@@ -8,4 +8,8 @@
     <ProjectReference Include="..\RayWorkflow.Domain.Shared\RayWorkflow.Domain.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Volo.Abp.Ddd.Domain" Version="2.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.1" />
+  </ItemGroup>
 </Project>

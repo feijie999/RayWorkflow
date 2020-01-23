@@ -13,7 +13,7 @@ namespace RayWorkflow.Domain
 
         void Insert(TEntity entity);
 
-        ValueTask<TEntity> InsertAsync(TEntity entity);
+        Task<TEntity> InsertAsync(TEntity entity);
 
         TEntity Update(TEntity entity);
 
