@@ -36,6 +36,7 @@ namespace RayWorkflow.Domain.Workflow
         /// 是否禁用
         /// </summary>
         public bool Disabled { get; set; }
+
         /// <summary>
         /// 备注
         /// </summary>

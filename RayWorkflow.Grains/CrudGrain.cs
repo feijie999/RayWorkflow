@@ -75,7 +75,7 @@ namespace RayWorkflow.Grains
 
         public Task Over()
         {
-            return base.Over(OverType.ArchivingEvent);
+            return Over(OverType.ArchivingEvent);
         }
 
         #endregion

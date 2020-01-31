@@ -13,6 +13,8 @@ using RayWorkflow.Grains;
 
 namespace RayWorkflow.Host
 {
+    using RayWorkflow.EntityFrameworkCore;
+
     class Program
     {
         public static IConfigurationRoot Configuration;
@@ -30,7 +32,7 @@ namespace RayWorkflow.Host
         {
             var builder = new HostBuilder()
                 .UseOrleans(
-                    (Microsoft.Extensions.Hosting.HostBuilderContext context, ISiloBuilder siloBuilder) =>
+                    (context, siloBuilder) =>
                     {
                         siloBuilder.Configure<ClusterOptions>(Configuration.GetSection("ClusterOptions"))
                             .UseLocalhostClustering(11115, 30005)
@@ -40,18 +42,18 @@ namespace RayWorkflow.Host
                     })
                 .ConfigureServices((context, serviceCollection) =>
                 {
+                    serviceCollection.AddCrudGrain<RayWorkflowDbContext>(Configuration.GetConnectionString("RayWorkflow"), null, typeof(GrainDtoMapper).Assembly);
                     //注册postgresql为事件存储库
                     serviceCollection.AddPostgreSQLStorage(config =>
                     {
                         config.ConnectionDict.Add("core_event",
-                            Configuration.GetConnectionString("EventConnection"));
+                            Configuration.GetConnectionString("Event"));
                     });
                     serviceCollection.AddPostgreSQLTxStorage(options =>
                     {
                         options.ConnectionKey = "core_event";
                         options.TableName = "Transaction_TemporaryRecord";
                     });
-                    //serviceCollection.AddCrudGrain<>
                 })
                 .ConfigureLogging(logging =>
                 {

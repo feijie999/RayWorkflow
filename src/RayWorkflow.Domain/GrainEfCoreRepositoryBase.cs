@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Dynamic.Core;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +8,8 @@ using RayWorkflow.Domain.Shared;
 
 namespace RayWorkflow.Domain
 {
+    using System.Threading;
+
     public class GrainEfCoreRepositoryBase<TEntity, TPrimaryKey> : IGrainRepository<TEntity, TPrimaryKey>
           where TEntity : class, IEntity<TPrimaryKey>
     {
@@ -93,9 +94,9 @@ namespace RayWorkflow.Domain
             Context.SaveChanges();
         }
 
-        public Task CommitAsync()
+        public Task CommitAsync(CancellationToken cancellationToken = default)
         {
-            return Context.SaveChangesAsync();
+            return Context.SaveChangesAsync(cancellationToken);
         }
 
         protected virtual void AttachIfNot(TEntity entity)

@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="appsettings.json" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.Orleans.OrleansProviders" Version="3.0.2" />
     <PackageReference Include="Microsoft.Orleans.OrleansRuntime" Version="3.0.2" />
     <PackageReference Include="OrleansDashboard" Version="3.0.8" />
@@ -12,5 +16,11 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RayWorkflow.Grains\RayWorkflow.Grains.csproj" />
+    <ProjectReference Include="..\src\RayWorkflow.EntityFrameworkCore\RayWorkflow.EntityFrameworkCore.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 </Project>

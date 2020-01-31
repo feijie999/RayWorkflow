@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 namespace RayWorkflow.Domain
 {
     using RayWorkflow.Domain.Shared;
+    using System.Threading;
 
     public interface IGrainRepository<TEntity, in TPrimaryKey> : IDisposable where TEntity : class, IEntity<TPrimaryKey>
     {
@@ -21,6 +22,6 @@ namespace RayWorkflow.Domain
 
         void Commit();
 
-        Task CommitAsync();
+        Task CommitAsync(CancellationToken cancellationToken = default);
     }
 }
