@@ -5,11 +5,10 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using RayWorkflow.Domain.Shared;
+using System.Threading;
 
 namespace RayWorkflow.Domain
 {
-    using System.Threading;
-
     public class GrainEfCoreRepositoryBase<TEntity, TPrimaryKey> : IGrainRepository<TEntity, TPrimaryKey>
           where TEntity : class, IEntity<TPrimaryKey>
     {

@@ -9,6 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.Orleans.Clustering.AdoNet" Version="3.0.2" />
     <PackageReference Include="Microsoft.Orleans.OrleansProviders" Version="3.0.2" />
     <PackageReference Include="Microsoft.Orleans.OrleansRuntime" Version="3.0.2" />
     <PackageReference Include="OrleansDashboard" Version="3.0.8" />

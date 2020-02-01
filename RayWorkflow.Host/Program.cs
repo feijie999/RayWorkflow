@@ -10,10 +10,12 @@ using Orleans.Hosting;
 using Ray.Core;
 using Ray.Storage.PostgreSQL;
 using RayWorkflow.Grains;
+using Microsoft.Extensions.DependencyInjection;
+using Ray.EventBus.RabbitMQ;
+using RayWorkflow.EntityFrameworkCore;
 
 namespace RayWorkflow.Host
 {
-    using RayWorkflow.EntityFrameworkCore;
 
     class Program
     {
@@ -35,7 +37,11 @@ namespace RayWorkflow.Host
                     (context, siloBuilder) =>
                     {
                         siloBuilder.Configure<ClusterOptions>(Configuration.GetSection("ClusterOptions"))
-                            .UseLocalhostClustering(11115, 30005)
+                            .UseAdoNetClustering(options =>
+                            {
+                                options.ConnectionString = Configuration["ConnectionStrings:OrleansCluster"];
+                                options.Invariant = "Npgsql";
+                            })
                             .UseDashboard()
                             .AddRay<RayWorkflowConfig>()
                             .ConfigureApplicationParts(parts => parts.AddApplicationPart(typeof(WorkflowFormGrain).Assembly).WithReferences());
@@ -54,6 +60,8 @@ namespace RayWorkflow.Host
                         options.ConnectionKey = "core_event";
                         options.TableName = "Transaction_TemporaryRecord";
                     });
+                    serviceCollection.Configure<RabbitOptions>(Configuration.GetSection("RabbitConfig"));
+                    serviceCollection.AddRabbitMQ(_ => { });
                 })
                 .ConfigureLogging(logging =>
                 {
