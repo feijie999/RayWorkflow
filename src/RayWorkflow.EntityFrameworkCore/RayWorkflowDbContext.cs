@@ -1,8 +1,9 @@
-﻿namespace RayWorkflow.EntityFrameworkCore
+﻿using Microsoft.EntityFrameworkCore;
+using RayWorkflow.Domain.Workflow;
+using Volo.Abp.EntityFrameworkCore;
+
+namespace RayWorkflow.EntityFrameworkCore
 {
-    using Microsoft.EntityFrameworkCore;
-    using RayWorkflow.Domain.Workflow;
-    using Volo.Abp.EntityFrameworkCore;
 
     public class RayWorkflowDbContext : AbpDbContext<RayWorkflowDbContext>, IRayWorkflowDbContext
     {

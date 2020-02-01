@@ -1,11 +1,10 @@
-﻿namespace RayWorkflow.EntityFrameworkCore
-{
-    using Microsoft.EntityFrameworkCore;
-    using RayWorkflow.Domain.Workflow;
-    using System;
-    using Volo.Abp;
-    using Volo.Abp.EntityFrameworkCore.Modeling;
+﻿using Microsoft.EntityFrameworkCore;
+using RayWorkflow.Domain.Workflow;
+using Volo.Abp;
+using Volo.Abp.EntityFrameworkCore.Modeling;
 
+namespace RayWorkflow.EntityFrameworkCore
+{
     public static class RayWorkflowDbContextModelCreatingExtensions
     {
         public static void ConfigureRayWorkflow(

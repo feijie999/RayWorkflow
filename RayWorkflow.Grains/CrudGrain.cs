@@ -10,11 +10,10 @@ using RayWorkflow.Domain;
 
 namespace RayWorkflow.Grains
 {
-
     public abstract class CrudGrain<TPrimaryKey, TSnapshotType, TEntityType, TSnapshotDto> :
         ConcurrentTxGrain<TPrimaryKey, TSnapshotType>
         , ICrudGrain<TSnapshotDto>
-        where TSnapshotType : class, ICloneable<TSnapshotType>, TEntityType, new()
+        where TSnapshotType : class, ICloneable<TSnapshotType>/*, TEntityType*/, new()
         where TEntityType : class, IEntity<TPrimaryKey>
         where TSnapshotDto : class, new()
         where TPrimaryKey : new()

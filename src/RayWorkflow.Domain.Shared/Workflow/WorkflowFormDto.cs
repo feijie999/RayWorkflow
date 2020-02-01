@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace RayWorkflow.Domain.Shared.Workflow
 {
+    [Serializable]
     public class WorkflowFormDto
     {
         public Guid Id { get; set; }

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using RayWorkflow.Domain.Workflow;
 using RayWorkflow.Grains.States;
+using RayWorkflow.Domain.Shared.Workflow;
 
 namespace RayWorkflow.Grains
 {
@@ -9,6 +10,7 @@ namespace RayWorkflow.Grains
         public GrainDtoMapper()
         {
             CreateMap<WorkflowForm, WorkflowFormState>().ReverseMap();
+            CreateMap<WorkflowFormDto, WorkflowFormState>().ReverseMap();
         }
     }
 }

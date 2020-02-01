@@ -37,6 +37,7 @@ namespace RayWorkflow.Grains
                     {
                         options.UseNpgsql(connectionString);
                     }, ServiceLifetime.Transient);
+            serviceCollection.AddTransient<DbContext, TDbContext>();
 
             return serviceCollection;
         }

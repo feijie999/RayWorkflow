@@ -91,66 +91,6 @@ namespace RayWorkflow.Orleans.Host.Test
 
             var host = builder.Build();
             return host;
-//            var builder = new SiloHostBuilder()
-//                .Configure<ClusterOptions>(options =>
-//                {
-//                    options.ClusterId = "unit_test_dev";
-//                    options.ServiceId = "workflow_app";
-//                })
-//                .UseAdoNetClustering(option =>
-//                {
-//                    option.ConnectionString = OrleansClusterConnection;
-//                    option.Invariant = "Npgsql";
-//                })
-//                .AddRay<RayWorkflowConfig>()
-//                .Configure<EndpointOptions>(options =>
-//                {
-//#if DEBUG
-//                    options.GatewayPort = 30001;
-//#endif
-//                    options.AdvertisedIPAddress = IPAddress.Loopback;
-//                })
-//                .ConfigureApplicationParts(
-//                    parts => parts.AddApplicationPart(typeof(WorkflowFormGrain).Assembly).WithReferences())
-//                .ConfigureServices((context, serviceCollection) =>
-//                {
-//                    serviceCollection.AddCrudGrain<RayWorkflowDbContext>(SqlConnection, null, typeof(GrainDtoMapper).Assembly);
-//                    //注册postgresql为事件存储库
-//                    serviceCollection.AddPostgreSQLStorage(config =>
-//                    {
-//                        config.ConnectionDict.Add("core_event",
-//                            "Server=127.0.0.1;Port=5432;Database=approval_es_test;User Id=postgres;Password=123456;maximum pool size=20;");
-//                    });
-//                    serviceCollection.AddPostgreSQLTxStorage(options =>
-//                    {
-//                        options.ConnectionKey = "core_event";
-//                        options.TableName = "Transaction_TemporaryRecord";
-//                    });
-//                    serviceCollection.AddAutoMapper(WorkFlowDtoMapper.CreateMapping);
-//                    serviceCollection.PSQLConfigure();
-//                    serviceCollection.AddEntityFrameworkNpgsql().AddDbContext<ApprovalDbContext>(
-//                            options => { DbContextOptionsConfigurer.Configure(options, SqlConnection); },
-//                            ServiceLifetime.Transient)
-//                        .AddAbpRepository();
-//                    serviceCollection.AddRabbitMQ(config =>
-//                    {
-//                        config.UserName = "guest";
-//                        config.Password = "guest";
-//                        config.Hosts = new[] { "127.0.0.1:5672" };
-//                        config.MaxPoolSize = 100;
-//                        config.VirtualHost = "/test";
-//                    });
-//                })
-//                .AddIncomingGrainCallFilter<DbContextGrainCallFilter>()
-//                .Configure<GrainCollectionOptions>(options => { options.CollectionAge = TimeSpan.FromHours(2); })
-//                .ConfigureLogging(logging =>
-//                {
-//                    logging.SetMinimumLevel(LogLevel.Information);
-//                    logging.AddConsole(options => options.IncludeScopes = true);
-//                });
-
-//            var host = builder.Build();
-//            return host;
         }
     }
 }

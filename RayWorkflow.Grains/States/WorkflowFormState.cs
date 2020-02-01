@@ -2,12 +2,13 @@
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using Ray.Core.Snapshot;
-using RayWorkflow.Domain.Workflow;
+using RayWorkflow.Domain.Shared.Workflow;
 
 namespace RayWorkflow.Grains.States
 {
+
     [Serializable]
-    public class WorkflowFormState : WorkflowForm, ICloneable<WorkflowFormState>
+    public class WorkflowFormState : WorkflowFormDto, ICloneable<WorkflowFormState>
     {
         public WorkflowFormState Clone()
         {
