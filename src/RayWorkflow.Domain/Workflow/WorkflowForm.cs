@@ -11,6 +11,14 @@ namespace RayWorkflow.Domain.Workflow
     [Serializable]
     public class WorkflowForm : AuditedEntity<Guid>, IEntity<Guid>
     {
+        public WorkflowForm()
+        {
+        }
+
+        public WorkflowForm(Guid id):base(id)
+        {
+        }
+
         /// <summary>
         /// 表单名称
         /// </summary>
