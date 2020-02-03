@@ -4,7 +4,7 @@ using System;
 
 namespace RayWorkflow.IGrains
 {
-    public interface IWorkflowFormDbGrain : IObserver, IGrainWithGuidKey, ICrudDbGrain<Guid>
+    public interface IWorkflowFormDbGrain : IObserver, IGrainWithGuidKey
     {
         
     }

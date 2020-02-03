@@ -14,6 +14,7 @@ namespace RayWorkflow.Grains
         {
             serviceCollection.AddSingleton<IConfigureBuilder<Guid, WorkflowFormGrain>>(new PSQLConfigureBuilder<Guid, WorkflowFormGrain>((provider, id, parameter) =>
                 new GuidKeyOptions(provider, "core_event", "WorkflowForm")).AutoRegistrationObserver());
+            serviceCollection.AddTransient<IWorkflowFormHandler, WorkflowFormHandler>();
         }
 
         public Task ConfigureObserverUnit(IServiceProvider serviceProvider, IObserverUnitContainer followUnitContainer)

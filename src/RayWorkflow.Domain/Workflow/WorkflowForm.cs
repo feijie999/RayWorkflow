@@ -49,5 +49,10 @@ namespace RayWorkflow.Domain.Workflow
         /// 备注
         /// </summary>
         public string Description { get; set; }
+
+        public void SetId(Guid id)
+        {
+            Id = id;
+        }
     }
 }

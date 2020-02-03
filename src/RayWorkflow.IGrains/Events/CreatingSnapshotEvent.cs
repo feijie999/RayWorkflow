@@ -1,7 +1,7 @@
 ﻿using Ray.Core.Event;
 using System;
 
-namespace RayWorkflow.Grains.Events
+namespace RayWorkflow.IGrains.Events
 {
     [Serializable]
     public class CreatingSnapshotEvent<TSnapshot> : IEvent

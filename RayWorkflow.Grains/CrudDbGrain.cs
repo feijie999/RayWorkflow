@@ -5,16 +5,18 @@ using Ray.Core;
 using Ray.Core.Event;
 using RayWorkflow.Domain;
 using RayWorkflow.Domain.Shared;
-using RayWorkflow.Grains.Events;
 using RayWorkflow.IGrains;
+using RayWorkflow.IGrains.Events;
 
 namespace RayWorkflow.Grains
 {
+    using System;
+
     public abstract class
           CrudDbGrain<TMain, TSnapshot, TPrimaryKey, TEntityType> :
-              ObserverGrain<TPrimaryKey, TMain>, ICrudDbGrain<TPrimaryKey>
-           where TSnapshot : class, new()
-           where TEntityType : class, IEntity<TPrimaryKey>
+              ObserverGrain<TPrimaryKey, TMain>
+           where TSnapshot : class, TEntityType, new()
+           where TEntityType : class, IEntity<TPrimaryKey>, new()
     {
         protected ICrudHandle<TPrimaryKey, TSnapshot> CrudHandle;
         protected IMapper Mapper;
@@ -33,20 +35,22 @@ namespace RayWorkflow.Grains
             switch (fullyEvent.Event)
             {
                 case CreatingSnapshotEvent<TSnapshot> evt:
+                    evt.Snapshot.SetId(fullyEvent.StateId);
                     await CreatingSnapshotHandle(evt);
-                    break;
+                    return;
                 case UpdatingSnapshotEvent<TSnapshot> evt:
+                    evt.Snapshot.SetId(fullyEvent.StateId);
                     await UpdatingSnapshotHandle(evt);
-                    break;
+                    return;
                 case DeletingSnapshotEvent<TPrimaryKey> evt:
                     await DeletingSnapshotHandle(evt);
-                    break;
+                    return;
             }
 
-            await Process(fullyEvent);
+            await base.OnEventDelivered(fullyEvent);
         }
 
-        private async Task CreatingSnapshotHandle(CreatingSnapshotEvent<TSnapshot> evt)
+        public async Task CreatingSnapshotHandle(CreatingSnapshotEvent<TSnapshot> evt)
         {
             using var repository = ServiceProvider.GetService<IGrainRepository<TEntityType, TPrimaryKey>>();
             var entity = Mapper.Map<TEntityType>(evt.Snapshot);
@@ -54,7 +58,7 @@ namespace RayWorkflow.Grains
             await repository.CommitAsync();
         }
 
-        private async Task UpdatingSnapshotHandle(UpdatingSnapshotEvent<TSnapshot> evt)
+        public async Task UpdatingSnapshotHandle(UpdatingSnapshotEvent<TSnapshot> evt)
         {
             using var repository = ServiceProvider.GetService<IGrainRepository<TEntityType, TPrimaryKey>>();
             var entity = Mapper.Map<TEntityType>(evt.Snapshot);
@@ -62,14 +66,12 @@ namespace RayWorkflow.Grains
             await repository.CommitAsync();
         }
 
-        private async Task DeletingSnapshotHandle(DeletingSnapshotEvent<TPrimaryKey> evt)
+        public async Task DeletingSnapshotHandle(DeletingSnapshotEvent<TPrimaryKey> evt)
         {
             using var repository = ServiceProvider.GetService<IGrainRepository<TEntityType, TPrimaryKey>>();
             repository.Delete(evt.PrimaryKey);
             await repository.CommitAsync();
         }
         #endregion
-
-        public abstract Task Process(FullyEvent<TPrimaryKey> @event);
     }
 }

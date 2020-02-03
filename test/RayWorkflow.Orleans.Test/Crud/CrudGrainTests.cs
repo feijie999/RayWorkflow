@@ -54,6 +54,7 @@ namespace RayWorkflow.Orleans.Test.Crud
                          });
             var updateResult = await grain.Get();
             updateResult.Name.ShouldBe("Name3");
+            await Task.Delay(500);
             UsingDbContext(dbContext =>
             {
                 dbContext.Set<WorkflowForm>().Any(x => x.Id == entity.Id).ShouldBeTrue();
@@ -74,6 +75,7 @@ namespace RayWorkflow.Orleans.Test.Crud
             await grain.Over();
             var updateResult = await grain.Get();
             updateResult.Id.ShouldBe(default);
+            await Task.Delay(500);
             UsingDbContext(dbContext =>
             {
                 dbContext.Set<WorkflowForm>().Any(x => x.Id == entity.Id).ShouldBeFalse();

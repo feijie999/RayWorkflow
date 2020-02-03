@@ -4,9 +4,9 @@ using Ray.Core;
 using Ray.Core.Snapshot;
 using RayWorkflow.Domain.Shared;
 using RayWorkflow.IGrains;
-using RayWorkflow.Grains.Events;
 using System.Threading.Tasks;
 using RayWorkflow.Domain;
+using RayWorkflow.IGrains.Events;
 
 namespace RayWorkflow.Grains
 {

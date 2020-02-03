@@ -21,10 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Workflows\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\src\RayWorkflow.EntityFrameworkCore\RayWorkflow.EntityFrameworkCore.csproj" />
     <ProjectReference Include="..\..\src\RayWorkflow.IGrains\RayWorkflow.IGrains.csproj" />
   </ItemGroup>

@@ -6,10 +6,13 @@ using RayWorkflow.Domain.Shared.Workflow;
 
 namespace RayWorkflow.Grains.States
 {
+    using RayWorkflow.Domain.Workflow;
 
     [Serializable]
-    public class WorkflowFormState : WorkflowFormDto, ICloneable<WorkflowFormState>
+    public class WorkflowFormState : WorkflowForm, ICloneable<WorkflowFormState>
     {
+        public Guid StateId { get; set; }
+
         public WorkflowFormState Clone()
         {
             using (var memoryStream = new MemoryStream())

@@ -2,7 +2,7 @@
 using Ray.Core.Event;
 using Ray.Core.Snapshot;
 using Ray.DistributedTx;
-using RayWorkflow.Grains.Events;
+using RayWorkflow.IGrains.Events;
 
 namespace RayWorkflow.Grains
 {
@@ -19,7 +19,21 @@ namespace RayWorkflow.Grains
 
         public override void CustomApply(Snapshot<TPrimaryKey, TSnapshot> snapshot, FullyEvent<TPrimaryKey> fullyEvent)
         {
-            Apply(snapshot.State, fullyEvent.Event);
+            switch (fullyEvent.Event)
+            {
+                case CreatingSnapshotEvent<TSnapshot> evt:
+                    CreatingSnapshotHandle(snapshot.State, evt);
+                    break;
+                case UpdatingSnapshotEvent<TSnapshot> evt:
+                    UpdatingSnapshotHandle(snapshot.State, evt);
+                    break;
+                case DeletingSnapshotEvent<TPrimaryKey> evt:
+                    DeletingSnapshotHandle(snapshot.State, evt);
+                    break;
+                default:
+                    base.CustomApply(snapshot, fullyEvent);
+                    break;
+            }
         }
 
         public void CreatingSnapshotHandle(TSnapshot snapshotState, CreatingSnapshotEvent<TSnapshot> evt)
@@ -37,25 +51,5 @@ namespace RayWorkflow.Grains
             var defaultSnapshot = new TSnapshot();
             Mapper.Map(defaultSnapshot, snapshotState);
         }
-
-        #region Implementation of ICrudHandle<in TSnapshot>
-
-        public virtual void Apply(TSnapshot snapshot, IEvent @event)
-        {
-            switch (@event)
-            {
-                case CreatingSnapshotEvent<TSnapshot> evt:
-                    CreatingSnapshotHandle(snapshot, evt);
-                    break;
-                case UpdatingSnapshotEvent<TSnapshot> evt:
-                    UpdatingSnapshotHandle(snapshot, evt);
-                    break;
-                case DeletingSnapshotEvent<TPrimaryKey> evt:
-                    DeletingSnapshotHandle(snapshot, evt);
-                    break;
-            }
-        }
-
-        #endregion
     }
 }
