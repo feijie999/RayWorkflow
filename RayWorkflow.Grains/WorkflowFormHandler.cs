@@ -5,6 +5,8 @@ using System;
 
 namespace RayWorkflow.Grains
 {
+    using RayWorkflow.Domain.Workflow;
+
     public class WorkflowFormHandler : CrudHandle<Guid, WorkflowFormState>, IWorkflowFormHandler
     {
         public WorkflowFormHandler(IMapper mapper)
@@ -14,14 +16,24 @@ namespace RayWorkflow.Grains
 
         public void EventHandle(WorkflowFormState state, DisabledEvent evt)
         {
-            state.Disabled = true;
-            state.LastModificationTime = evt.LastModificationTime;
+            WorkflowFormHandler.EventHandle(state, evt);
+        }
+
+        public static void EventHandle(WorkflowForm entity, DisabledEvent evt)
+        {
+            entity.Disabled = true;
+            entity.LastModificationTime = evt.LastModificationTime;
         }
 
         public void EventHandle(WorkflowFormState state, EnabledEvent evt)
         {
-            state.Disabled = false;
-            state.LastModificationTime = evt.LastModificationTime;
+            WorkflowFormHandler.EventHandle(state, evt);
+        }
+
+        public static void EventHandle(WorkflowForm entity, EnabledEvent evt)
+        {
+            entity.Disabled = false;
+            entity.LastModificationTime = evt.LastModificationTime;
         }
     }
 }

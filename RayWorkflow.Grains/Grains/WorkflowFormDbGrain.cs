@@ -16,21 +16,19 @@ namespace RayWorkflow.Grains
     [Observer(DefaultObserverGroup.primary, "db", typeof(WorkflowFormGrain))]
     public class WorkflowFormDbGrain : CrudDbGrain<WorkflowFormGrain, WorkflowFormState, Guid, WorkflowForm>, IWorkflowFormDbGrain
     {
-        public async Task EventHandle(EnabledEvent evt/*, EventBase eventBase*/)
+        public async Task EventHandle(EnabledEvent evt)
         {
             using var repository = ServiceProvider.GetService<IGrainRepository<WorkflowForm, Guid>>();
             var form = await repository.FirstOrDefaultAsync(evt.Id);
-            form.Disabled = false;
-            form.LastModificationTime = evt.LastModificationTime;
+            WorkflowFormHandler.EventHandle(form, evt);
             await repository.CommitAsync();
         }
 
-        public async Task EventHandle(DisabledEvent evt/*, EventBase eventBase*/)
+        public async Task EventHandle(DisabledEvent evt)
         {
             using var repository = ServiceProvider.GetService<IGrainRepository<WorkflowForm, Guid>>();
             var form = await repository.FirstOrDefaultAsync(evt.Id);
-            form.Disabled = true;
-            form.LastModificationTime = evt.LastModificationTime;
+            WorkflowFormHandler.EventHandle(form, evt);
             await repository.CommitAsync();
         }
     }
